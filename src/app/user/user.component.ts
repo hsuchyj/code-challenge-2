@@ -11,32 +11,27 @@ import { UserService } from '../user.service';
 export class UserComponent implements OnInit {
 
 
-  userInfo : UserInformation;
+  authorList : UserInformation;
+  titleList : UserInformation;
 
   constructor(public userService: UserService) { 
-    this.userInfo = {} as UserInformation;
+    this.authorList = {} as UserInformation;
+    this.titleList = {} as UserInformation;
   }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe((response:UserInformation) => {
+    this.userService.getUsers("https://poetrydb.org/author").subscribe((response:UserInformation) => {
       debugger;
-      this.userInfo = response;
+      this.authorList = response;
+      console.log(response)
       return;
-      console.log(response);
-      this.userInfo.page = response?.page;
-      this.userInfo.per_page = response?.per_page;
-      //this.userInfo.support = response.support;
-      this.userInfo.total = response?.total;
-      this.userInfo.total_pages = response?.total_pages;
-      this.userInfo.data = response?.data?.map(item => {
-        var user = {} as User;
-        user.avatar = item?.avatar;
-        user.email = item?.email;
-        user.first_name = item?.first_name;
-        user.last_name = item?.last_name;
-        user.id = item?.id;
-        return user;
-      });
+    });
+
+    this.userService.getUsers("https://poetrydb.org/titles").subscribe((response:UserInformation) => {
+      debugger;
+      this.titleList = response;
+      console.log(response)
+      return;
     });
   }
 

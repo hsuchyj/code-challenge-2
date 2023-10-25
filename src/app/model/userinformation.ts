@@ -6,4 +6,6 @@ export interface UserInformation {
     total: Number;
     total_pages: Number;
     data: User[];
+    authors: [];
+    titles: [];
 }

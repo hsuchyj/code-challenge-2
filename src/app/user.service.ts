@@ -9,8 +9,8 @@ import { UserInformation } from './model/userinformation';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  public getUsers(): Observable<UserInformation> {
-    const url = 'https://reqres.in/api/users?page=1';
+  public getUsers(url:any): Observable<UserInformation> {
+    //const url = 'https://poetrydb.org/author';
     const wrongUrl = `https://fakestoreapi.com/users?limit=2`;
     return this.http.get<UserInformation>(url);
   }

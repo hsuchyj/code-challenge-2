@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { UserInformation } from './model/userinformation';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,10 @@ export class UserService {
 
   public getUsers(url:any): Observable<UserInformation> {
     //const url = 'https://poetrydb.org/author';
-    const wrongUrl = `https://fakestoreapi.com/users?limit=2`;
-    return this.http.get<UserInformation>(url);
+    return this.http.get<UserInformation>(url).pipe(
+      catchError(error => {
+        return throwError(error.message);
+      }));
   }
+  
 }
